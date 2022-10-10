@@ -96,7 +96,7 @@ int binarySearch(int array[], int elementToFind, int low, int high)
 	return -1;
 }
 
-int main(void)
+int main()
 {
 	int array[] = {10, 20, 30, 50, 60, 80, 110, 130, 140, 170};
 	int arraySize = *(&array + 1) - array;
