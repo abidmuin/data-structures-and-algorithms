@@ -1,19 +1,32 @@
+/*
+
+----------------------------
+Time Complexities
+----------------------------
+Best Case => O(1)
+Average Case => O(log n)
+Worst Case => O(log n)
+
+----------------------------
+Space Complexity
+----------------------------
+Space Complexity => O(1).
+
+*/
+
 // ITERATIVE APPROACH
 
 #include <bits/stdc++.h>
 
 using namespace std;
 
-int binarySearch(int array[], int elementToFind)
+int binarySearch(int array[], int elementToFind, int low, int high)
 {
-	int arraySize = *(&array + 1) - array;
-	int low = 0;
-	int high = arraySize - 1;
 	int mid = 0;
 
 	while (low <= high)
 	{
-		mid = (low + (high-low)) / 2;
+		mid = (low + high) / 2;
 
 		if (array[mid] == elementToFind)
 		{
@@ -34,15 +47,73 @@ int binarySearch(int array[], int elementToFind)
 int main()
 {
 	int array[] = {10, 20, 30, 50, 60, 80, 110, 130, 140, 170};
-	int elementToFind = 10;
+	int arraySize = *(&array + 1) - array;
+	int elementToFind = 110;
+
+	int startIndex = 0;
+	int endIndex = arraySize - 1;
 	int resultIndex = 0;
 
-	resultIndex = binarySearch(array, elementToFind);
+	resultIndex = binarySearch(array, elementToFind, startIndex, endIndex);
 
 	if (resultIndex == -1)
-	{cout << "Element Not Found." << endl;
+	{
+		cout << "Element Not Found." << endl;
 	}
-	else{
+	else
+	{
+		cout << "Element is at index: " << resultIndex << endl;
+	}
+
+	return 0;
+}
+
+// RECURSIVE APPROACH
+
+#include <bits/stdc++.h>
+
+using namespace std;
+
+int binarySearch(int array[], int elementToFind, int low, int high)
+{
+	if (low <= high)
+	{
+		int mid = (low + high) / 2;
+
+		if (array[mid] == elementToFind)
+		{
+			return mid;
+		}
+
+		if (elementToFind < array[mid])
+		{
+			return binarySearch(array, elementToFind, low, mid - 1);
+		}
+
+		return binarySearch(array, elementToFind, mid + 1, high);
+	}
+
+	return -1;
+}
+
+int main()
+{
+	int array[] = {10, 20, 30, 50, 60, 80, 110, 130, 140, 170};
+	int arraySize = *(&array + 1) - array;
+	int elementToFind = 110;
+
+	int startIndex = 0;
+	int endIndex = arraySize - 1;
+	int resultIndex = 0;
+
+	resultIndex = binarySearch(array, elementToFind, startIndex, endIndex);
+
+	if (resultIndex == -1)
+	{
+		cout << "Element Not Found." << endl;
+	}
+	else
+	{
 		cout << "Element is at index: " << resultIndex << endl;
 	}
 
